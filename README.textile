@@ -1,6 +1,6 @@
 h1. Devise RPX Connectable
 
-_Devise << RPX_
+_Devise << RPX_ by "Nicolas Blanco":http://github.com/slainer68
 
 h2. What is Devise?
 
@@ -21,6 +21,8 @@ See *"RPX official homepage":https://rpxnow.com/*. If you want to see what it lo
 h2. What is Devise RPX Connectable?
 
 Devise RPX Connectable is a gem to integrate RPX authentication in a Rails application using Devise.
+
+Please note that this is an unofficial library. It is neither affiliated with, nor endorsed by RPX/JanRain Inc.
 
 h2. Dependencies
 
