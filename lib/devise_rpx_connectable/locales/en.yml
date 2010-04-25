@@ -1,0 +1,4 @@
+en:
+  devise:
+    sessions:
+      rpx_invalid: "Could not login. Invalid account."

@@ -1,0 +1,166 @@
+h1. Devise RPX Connectable
+
+_Devise << RPX_
+
+h2. What is Devise?
+
+A great authentication gem for Rails applications.
+
+"http://github.com/plataformatec/devise":http://github.com/plataformatec/devise
+
+h2. What is RPX?
+
+RPX is a Software as a Service (SaaS) that helps you manage multiple authentication methods (FacebookConnect, Google, Twitter, OpenID, MySpace...) using a single API.
+It also provides a multilingual connection widget.
+Instead of managing multiple authentication providers and APIs, you just need to handle one.
+
+RPX provides free and paid accounts.
+
+See *"RPX official homepage":https://rpxnow.com/*. If you want to see what it looks like, you may signup on the RPX website as it uses RPX for signup :).
+
+h2. What is Devise RPX Connectable?
+
+Devise RPX Connectable is a gem to integrate RPX authentication in a Rails application using Devise.
+
+h2. Dependencies
+
+Devise RPX Connectable was tested using latest stable Rails and Devise gems.
+
+Currently :
+
+*Rails* : version 2.3.5
+*Devise* : version 1.0.6
+
+I also want it to be compatible with latest prerelease gems of Devise, Rails and Mongoid.
+Therefore I also tested it with :
+
+*Rails* : version 3.0.0beta3
+*Mongoid* : version 2.0.0beta4
+*Devise* : master branch.
+
+h2. Installation
+
+*Gem (Rails >= 2.3.5)*
+
+<pre>
+  $ sudo gem install devise_rpx_connectable
+</pre>
+
+...and in @config/environment.rb@:
+
+<pre>
+  config.gem 'devise'
+  config.gem 'rpx_now'
+  config.gem 'devise_rpx_connectable'
+</pre>
+
+*Gem (Rails >= 3.0.0beta3)*
+
+@Gemfile@
+
+<pre>
+  gem 'devise', :git => 'git://github.com/plataformatec/devise.git'
+  gem 'rpx_now'
+  gem 'devise_rpx_connectable'
+</pre>
+
+h2. Setup
+
+*Devise: Setup*
+
+See "Devise":http://github.com/plataformatec/devise documentation for instructions on how to setup Devise.
+
+*Devise: Model*
+
+Add @:rpx_connectable@ in your Devise model (ie. User.rb)
+
+<pre>
+  devise ..., :rpx_connectable
+</pre>
+
+*Devise:Setup*
+
+In the Devise initializer (may be @config/initializers/devise.rb@) :
+
+<pre>
+  Devise.setup do |config|
+    ...
+    config.rpx_application_name = "mytestingapp" # The name of your RPX application (this is the name, NOT the API key!)
+  end
+</pre>
+
+*RPXNow:API Key*
+
+In @config/environment.rb@ :
+
+<pre>
+  ...
+  config.after_initialize do # so rake gems:install works
+    RPXNow.api_key = "aaaabbbbbccccdddddeeeeefffff"
+  end
+  ...
+</pre>
+
+*Migrations*
+
+Your model needs one attribute/column to store the RPX identifier. By default, this identifier is @rpx_identifier@.
+
+*Views*
+
+I added an easy to use helper to add a link to the RPX connection popup.
+
+<pre>
+  <%= link_to_rpx "Signin using RPX!", user_session_url %>
+</pre>
+
+If you use the link alone, users will be redirected to a new page.
+If you want the more sexy popup in overlay, you need to add the JS code before the @</body>@ of your layout.
+An helper is also included for this task :
+
+<pre>
+      ...
+      <%= javascript_include_rpx(user_session_url) %>
+    </body>
+  </html>
+</pre>
+
+h2. Advanced
+
+There is some advanced features that you may use...
+
+*Devise:Setup*
+
+<pre>
+  Devise.setup do |config|
+    ...
+    config.rpx_auto_create_account = true # false if you don't want to create users automaticaly. True by default.
+  end
+</pre>
+
+*Devise:Model*
+
+Some hooks are available to get the RPXNow user data objects before or after the connection. Read the RPXNow gem documentation for more information.
+
+<pre>
+  def before_rpx_connect(rpx_user)
+    # Do something with rpx_user...
+  end
+  
+  def after_rpx_connect(rpx_user)
+    # Do something with rpx_user
+  end
+</pre>
+
+h2. TODO
+
+* With Rails 3 (only) I get an invalid auth token in sessions#create action. I have to skip the validation of the auth token. See why?
+* Handle RPX multiple accounts mapping?
+
+h2. Thanks
+
+The base of this gem was heavily inspired from the "Devise Facebook Connectable gem":http://github.com/grimen/devise_facebook_connectable by "Jonas Grimfelt":http://github.com/grimen and other Devise gems.
+
+h2. License
+
+Released under the MIT license.<br />
+Copyright (c) 2010 "Nicolas Blanco":http://github.com/slainer68
