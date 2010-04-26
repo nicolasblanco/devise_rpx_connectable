@@ -19,10 +19,10 @@ module Devise #:nodoc:
         def authenticate!
           klass = mapping.to
           begin
-            
             rpx_user = (RPXNow.user_data(params[:token]) rescue nil)
+            fail!(:rpx_invalid) and return unless rpx_user
             
-            if rpx_user && user = klass.authenticate_with_rpx(:identifier => rpx_user["identifier"])
+            if user = klass.authenticate_with_rpx(:identifier => rpx_user["identifier"])
               success!(user)
             else
               if klass.rpx_auto_create_account?
