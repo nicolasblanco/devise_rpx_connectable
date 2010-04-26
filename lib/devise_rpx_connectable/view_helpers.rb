@@ -24,6 +24,21 @@ module Devise #:nodoc:
     		out.respond_to?(:html_safe) ? out.html_safe : out
       end
 
+      # Embeds the RPX connection iframe in your page.
+      # By default the RPX frame will refer to the RPX application name you defined in the configuration.
+      # It may be overriden using :application_name if the options.
+      # The first parameter is the return URL, it must be absolute (***_url).
+      # You can override default iframe size using :width and :height in the options.
+      #
+      # Example :
+      # <%= embed_rpx user_session_url %>
+      #
+      def embed_rpx(link_url, options={})
+        token_url = build_token_url(link_url)
+        out = RPXNow.embed_code(rpx_application_name_from_options(options), token_url, options)
+        out.respond_to?(:html_safe) ? out.html_safe : out
+      end
+
       # Returns the necessary JS code for the RPX popup.
       # It is recommended to put this code just before the </body> tag of your layout.
       # 
