@@ -109,6 +109,9 @@ Your model needs one attribute/column to store the RPX identifier. By default, t
 
 *Views*
 
+The RPX connection widget can be added in your application using a link or an iframe.
+If you choose to use a link, the connection widget can be displayed in a new page (standard link) or using Javascript in overlay.
+
 I added an easy to use helper to add a link to the RPX connection popup.
 
 <pre>
@@ -124,6 +127,12 @@ An helper is also included for this task :
       <%= javascript_include_rpx(user_session_url) %>
     </body>
   </html>
+</pre>
+
+If you want to display the connection widget in an iframe inside a page :
+
+<pre>
+  <%= embed_rpx user_session_url %>
 </pre>
 
 h2. Advanced
@@ -158,9 +167,14 @@ h2. TODO
 * With Rails 3 (only) I get an invalid auth token in sessions#create action. I have to skip the validation of the auth token. See why?
 * Handle RPX multiple accounts mapping?
 
+h2. Contributors
+
+* "Paco Benavent":http://github.com/Knack
+
 h2. Thanks
 
 The base of this gem was heavily inspired from the "Devise Facebook Connectable gem":http://github.com/grimen/devise_facebook_connectable by "Jonas Grimfelt":http://github.com/grimen and other Devise gems.
+This gem also use the great "rpx_now":http://github.com/grosser/rpx_now by "Michael Grosser":http://github.com/grosser
 
 h2. License
 
