@@ -174,7 +174,7 @@ h2. Contributors
 h2. Thanks
 
 The base of this gem was heavily inspired from the "Devise Facebook Connectable gem":http://github.com/grimen/devise_facebook_connectable by "Jonas Grimfelt":http://github.com/grimen and other Devise gems.
-This gem also use the great "rpx_now":http://github.com/grosser/rpx_now by "Michael Grosser":http://github.com/grosser
+This gem also uses the great "rpx_now":http://github.com/grosser/rpx_now by "Michael Grosser":http://github.com/grosser
 
 h2. License
 
