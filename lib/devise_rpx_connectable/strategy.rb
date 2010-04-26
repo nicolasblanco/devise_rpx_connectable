@@ -28,9 +28,11 @@ module Devise #:nodoc:
               if klass.rpx_auto_create_account?
                 user = returning(klass.new) do |u|
                   u.store_rpx_credentials!(rpx_user)
+                  u.on_before_rpx_connect(rpx_user)
                 end
                 begin
                   user.save(false)
+                  user.on_after_rpx_connect(rpx_user)
                   success!(user)
                 rescue
                   fail!(:rpx_invalid)
