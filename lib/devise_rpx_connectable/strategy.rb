@@ -48,7 +48,7 @@ module Devise #:nodoc:
         
         protected
           def valid_controller?
-            params[:controller] == 'sessions'
+            params[:controller] == 'devise/sessions'
           end
 
           def valid_params?

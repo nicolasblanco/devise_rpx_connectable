@@ -60,7 +60,7 @@ module Devise #:nodoc:
         end
         
         def build_token_url(return_url)
-          "#{return_url}?authenticity_token=#{form_authenticity_token}"
+          "#{return_url}?authenticity_token=#{CGI.escape(form_authenticity_token)}"
         end
       
     end
