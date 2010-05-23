@@ -111,11 +111,13 @@ module Devise #:nodoc:
         #   Devise.setup do |config|
         #     config.rpx_identifier_field = :rpx_identifier
         #     config.rpx_auto_create_account = true
+        #     config.get_extended_user_data = true
         #   end
         #
         ::Devise::Models.config(self,
         :rpx_identifier_field,
-        :rpx_auto_create_account
+        :rpx_auto_create_account,
+        :get_extended_user_data
         )
 
         # Alias don't work for some reason, so...a more Ruby-ish alias

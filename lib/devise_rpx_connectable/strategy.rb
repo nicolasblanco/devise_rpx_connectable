@@ -19,7 +19,7 @@ module Devise #:nodoc:
         def authenticate!
           klass = mapping.to
           begin
-            rpx_user = (RPXNow.user_data(params[:token]) rescue nil)
+            rpx_user = (RPXNow.user_data(params[:token], :extended => klass.get_extended_user_data) rescue nil)
             fail!(:rpx_invalid) and return unless rpx_user
             
             if user = klass.authenticate_with_rpx(:identifier => rpx_user["identifier"])
@@ -48,7 +48,7 @@ module Devise #:nodoc:
         
         protected
           def valid_controller?
-            params[:controller] == 'devise/sessions'
+            params[:controller].to_s =~ /sessions/
           end
 
           def valid_params?
