@@ -145,6 +145,8 @@ There is some advanced features that you may use...
   Devise.setup do |config|
     ...
     config.rpx_auto_create_account = true # false if you don't want to create users automaticaly. True by default.
+		config.rpx_additional_user_data = [:verifiedEmail, :url, :providerName,:photo] #default [], get some extra profile info from RPXnow, default only a few fields are available in the user_date object 		(https://rpxnow.com/docs#profile_data)
+		config.rpx_extended_user_data = true #false by default, extended data only available for premium users (https://rpxnow.com/docs#api_auth_info)
   end
 </pre>
 
