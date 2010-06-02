@@ -166,7 +166,6 @@ Some hooks are available to get the RPXNow user data objects before or after the
 
 h2. TODO
 
-* With Rails 3 (only) I get an invalid auth token in sessions#create action. I have to skip the validation of the auth token. See why?
 * Handle RPX multiple accounts mapping?
 
 h2. Contributors
