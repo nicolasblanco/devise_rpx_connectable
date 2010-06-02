@@ -14,8 +14,11 @@ module Devise
   mattr_accessor :rpx_auto_create_account
   @@rpx_auto_create_account = true
   
-  mattr_accessor :get_extended_user_data
-  @@get_extended_user_data = true
+  mattr_accessor :rpx_extended_user_data
+  @@rpx_extended_user_data = true
+  
+  mattr_accessor :rpx_additional_user_data	
+  @@rpx_additional_user_data = []
   
   mattr_accessor :rpx_application_name
   @@rpx_application_name = nil
