@@ -9,7 +9,7 @@ module Devise #:nodoc:
       # Database migration schema for RPX.
       #
       def rpx_connectable
-        apply_schema ::Devise.rpx_identifier_field, String, :limit => 255
+        apply_devise_schema ::Devise.rpx_identifier_field, String, :limit => 255
       end
 
     end
