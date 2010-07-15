@@ -8,21 +8,21 @@ A great authentication gem for Rails applications.
 
 "http://github.com/plataformatec/devise":http://github.com/plataformatec/devise
 
-h2. What is RPX?
+h2. What is RPX (now Janrain Engage)?
 
-RPX is a Software as a Service (SaaS) that helps you manage multiple authentication methods (FacebookConnect, Google, Twitter, OpenID, MySpace...) using a single API.
+RPX (now called Janrain Engage) is a Software as a Service (SaaS) that helps you manage multiple authentication methods (FacebookConnect, Google, Twitter, OpenID, MySpace...) using a single API.
 It also provides a multilingual connection widget.
 Instead of managing multiple authentication providers and APIs, you just need to handle one.
 
-RPX provides free and paid accounts.
+Janrain Engage provides free and paid accounts.
 
-See *"RPX official homepage":https://rpxnow.com/*. If you want to see what it looks like, you may signup on the RPX website as it uses RPX for signup :).
+See *"Janrain Engage official homepage":https://rpxnow.com/*. If you want to see what it looks like, you may signup on the Janrain Engage website as it uses Engage for signup :).
 
 h2. What is Devise RPX Connectable?
 
-Devise RPX Connectable is a gem to integrate RPX authentication in a Rails application using Devise.
+Devise RPX Connectable is a gem to integrate Janrain Engage authentication in a Rails application using Devise.
 
-Please note that this is an unofficial library. It is neither affiliated with, nor endorsed by RPX/JanRain Inc.
+Please note that this is an unofficial library. It is neither affiliated with, nor endorsed by Janrain Inc.
 
 h2. Dependencies
 
@@ -34,11 +34,9 @@ Currently :
 *Devise* : version 1.0.6
 
 I also want it to be compatible with latest prerelease gems of Devise, Rails and Mongoid.
-Therefore I also tested it with :
 
-*Rails* : version 3.0.0beta3
-*Mongoid* : version 2.0.0beta4
-*Devise* : master branch.
+Therefore I also tested it with the latest beta versions of Rails, Devise and Mongoid.
+IMPORTANT : if you want to use this gem with pre-release versions of Rails 3/Devise, you MAY have to switch to use the master branch of this gem, Devise and Rails!
 
 h2. Installation
 
@@ -54,16 +52,6 @@ h2. Installation
   config.gem 'devise'
   config.gem 'rpx_now'
   config.gem 'devise_rpx_connectable'
-</pre>
-
-*Gem (Rails >= 3.0.0beta3)*
-
-@Gemfile@
-
-<pre>
-  gem 'devise', :git => 'git://github.com/plataformatec/devise.git'
-  gem 'rpx_now'
-  gem 'devise_rpx_connectable'
 </pre>
 
 h2. Setup
