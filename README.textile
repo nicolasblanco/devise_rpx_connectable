@@ -162,6 +162,7 @@ h2. Contributors
 * "DohMoose":http://github.com/DohMoose
 * "Chris de Bruin":http://github.com/chrisdebruin
 * "Michael Bumann":http://github.com/bumi
+* "Arek Flinik":http://github.com/blax
 
 h2. Thanks
 
