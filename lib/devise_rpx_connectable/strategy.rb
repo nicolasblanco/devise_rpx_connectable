@@ -32,7 +32,7 @@ module Devise #:nodoc:
                   u.on_before_rpx_connect(rpx_user)
                 end
                 begin
-                  user.save(false)
+                  user.save(:validate => false)
                   user.on_after_rpx_connect(rpx_user)
                   success!(user)
                 rescue
