@@ -27,7 +27,7 @@ module Devise #:nodoc:
               success!(user)
             else
               if klass.rpx_auto_create_account?
-                user = returning(klass.new) do |u|
+                user = klass.new.tap do |u|
                   u.store_rpx_credentials!(rpx_user)
                   u.on_before_rpx_connect(rpx_user)
                 end
