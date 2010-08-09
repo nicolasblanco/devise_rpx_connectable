@@ -163,6 +163,7 @@ h2. Contributors
 * "Chris de Bruin":http://github.com/chrisdebruin
 * "Michael Bumann":http://github.com/bumi
 * "Arek Flinik":http://github.com/blax
+* "Nader Akhnoukh":http://github.com/iamnader
 
 h2. Thanks
 
