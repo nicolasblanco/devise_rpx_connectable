@@ -1,6 +1,10 @@
 # encoding: utf-8
-require 'devise'
-require 'rpx_now'
+unless defined?(Devise)
+  require 'devise'
+end
+unless defined?(RPXNow)
+  require 'rpx_now'
+end
 
 require 'devise_rpx_connectable/model'
 require 'devise_rpx_connectable/strategy'
