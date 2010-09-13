@@ -26,33 +26,13 @@ Please note that this is an unofficial library. It is neither affiliated with, n
 
 h2. Dependencies
 
-Devise RPX Connectable was tested using latest stable Rails and Devise gems.
+Devise RPX Connectable should be compatible with the latest Rails and Devise versions (currently Rails 3.0 and Devise 1.2).
 
-Currently :
-
-*Rails* : version 2.3.5
-*Devise* : version 1.0.6
-
-I also want it to be compatible with latest prerelease gems of Devise, Rails and Mongoid.
-
-Therefore I also tested it with the latest beta versions of Rails, Devise and Mongoid.
-IMPORTANT : if you want to use this gem with pre-release versions of Rails 3/Devise, you MAY have to switch to use the master branch of this gem, Devise and Rails!
+IMPORTANT : This gem is now ONLY COMPATIBLE with Rails 3, if you want to use it with Rails 2, please use version 0.1.3.
 
 h2. Installation
 
-*Gem (Rails >= 2.3.5)*
-
-<pre>
-  $ sudo gem install devise_rpx_connectable
-</pre>
-
-...and in @config/environment.rb@:
-
-<pre>
-  config.gem 'devise'
-  config.gem 'rpx_now'
-  config.gem 'devise_rpx_connectable'
-</pre>
+As usual... Add @gem "devise_rpx_connectable"@ in your Gemfile.lock...
 
 h2. Setup
 
@@ -81,19 +61,18 @@ In the Devise initializer (may be @config/initializers/devise.rb@) :
 
 *RPXNow:API Key*
 
-In @config/environment.rb@ :
+In @config/application.rb@ or @config/environments/YOUR_ENV.rb@ (to set a different key for each environment...) :
 
 <pre>
   ...
-  config.after_initialize do # so rake gems:install works
     RPXNow.api_key = "aaaabbbbbccccdddddeeeeefffff"
-  end
   ...
 </pre>
 
 *Migrations*
 
 Your model needs one attribute/column to store the RPX identifier. By default, this identifier is @rpx_identifier@.
+So don't forget to add that field to your model (using a migration or whatever...).
 
 *Views*
 
@@ -140,14 +119,16 @@ There is some advanced features that you may use...
 
 *Devise:Model*
 
-Some hooks are available to get the RPXNow user data objects before or after the connection. Read the RPXNow gem documentation for more information.
+There are two hooks that you may define in your model : @before_rpx_success@ (called before each successful connection) and @before_rpx_auto_create@ (called only once before the auto saving of the user instance, when rpx_auto_create_account is enabled).
+You get in parameter the RPX User object from the RPXNow gem which is basically a Hash containing more or less information depending on your RPX configuration and account.
+Read the RPXNow gem documentation for more information about this...
 
 <pre>
-  def before_rpx_connect(rpx_user)
+  def before_rpx_success(rpx_user)
     # Do something with rpx_user...
   end
   
-  def after_rpx_connect(rpx_user)
+  def before_rpx_auto_create(rpx_user)
     # Do something with rpx_user
   end
 </pre>

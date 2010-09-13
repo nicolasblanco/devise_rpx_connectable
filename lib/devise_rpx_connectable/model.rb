@@ -55,16 +55,16 @@ module Devise #:nodoc:
       end
       alias :is_rpx_connected? :rpx_connected?
 
-      # Hook that gets called *before* connect (each time). Useful for
-      # fetching additional user info (etc.) from RPX.
+      # Hook that gets called before a successful connection (each time).
+      # Useful for fetching additional user info (etc.) from RPX.
       #
       # Default: Do nothing.
       #
-      # == Examples:
+      # == Example:
       #
       #   # Overridden in RPX connectable model, e.g. "User".
       #   #
-      #   def before_rpx_connect(rpx_user)
+      #   def before_rpx_success(rpx_user)
       #
       #      # Get email (if the provider supports it)
       #      email = rpx_user["email"]
@@ -76,14 +76,13 @@ module Devise #:nodoc:
       #
       #   * http://github.com/grosser/rpx_now
       #
-      def on_before_rpx_connect(rpx_user)
-        if self.respond_to?(:before_rpx_connect)
-          self.send(:before_rpx_connect, rpx_user) rescue nil
-        end
+      def on_before_rpx_success(rpx_user)
+        self.send(:before_rpx_success, rpx_user) if self.respond_to?(:before_rpx_success)
       end
-
-      # Hook that gets called *after* connect (each time). Useful for
-      # fetching additional user info (etc.) from RPX.
+      
+      # Hook that gets called before the auto creation of the user.
+      # Therefore, this hook is only called when rpx_auto_create_account config option is enabled.
+      # Useful for fetching additional user info (etc.) from RPX.
       #
       # Default: Do nothing.
       #
@@ -91,14 +90,20 @@ module Devise #:nodoc:
       #
       #   # Overridden in RPX connectable model, e.g. "User".
       #   #
-      #   def after_rpx_connect(rpx_user)
-      #     # See "on_before_rpx_connect" example.
+      #   def before_rpx_auto_create(rpx_user)
+      #
+      #      # Get email (if the provider supports it)
+      #      email = rpx_user["email"]
+      #     # etc...
+      #
       #   end
       #
-      def on_after_rpx_connect(rpx_user)
-        if self.respond_to?(:after_rpx_connect)
-          self.send(:after_rpx_connect, rpx_user) rescue nil
-        end
+      # == For more info:
+      #
+      #   * http://github.com/grosser/rpx_now
+      #
+      def on_before_rpx_auto_create(rpx_user)
+        self.send(:before_rpx_auto_create, rpx_user) if self.respond_to?(:before_rpx_auto_create)
       end
 
       module ClassMethods
@@ -114,10 +119,10 @@ module Devise #:nodoc:
         #   end
         #
         ::Devise::Models.config(self,
-        :rpx_identifier_field,
-        :rpx_auto_create_account,
-        :rpx_extended_user_data,
-        :rpx_additional_user_data
+          :rpx_identifier_field,
+          :rpx_auto_create_account,
+          :rpx_extended_user_data,
+          :rpx_additional_user_data
         )
 
         # Alias don't work for some reason, so...a more Ruby-ish alias

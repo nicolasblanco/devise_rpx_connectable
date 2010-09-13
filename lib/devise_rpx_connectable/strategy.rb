@@ -23,26 +23,23 @@ module Devise #:nodoc:
             fail!(:rpx_invalid) and return unless rpx_user
             
             if user = klass.authenticate_with_rpx(:identifier => rpx_user["identifier"])
+              user.on_before_rpx_success(rpx_user)
               success!(user)
-            else
-              if klass.rpx_auto_create_account?
-                user = klass.new.tap do |u|
-                  u.store_rpx_credentials!(rpx_user)
-                  u.on_before_rpx_connect(rpx_user)
-                end
-                begin
-                  user.save(:validate => false)
-                  user.on_after_rpx_connect(rpx_user)
-                  success!(user)
-                rescue
-                  fail!(:rpx_invalid)
-                end
-              else
-                fail!(:rpx_invalid)
-              end
+              return
             end
-          rescue => e
-            fail!(e.message)
+            
+            fail!(:rpx_invalid) and return unless klass.rpx_auto_create_account?
+            
+            user = klass.new
+            user.store_rpx_credentials!(rpx_user)
+            user.on_before_rpx_auto_create(rpx_user)
+            
+            user.save(:validate => false)
+            user.on_before_rpx_success(rpx_user)
+            success!(user)
+            
+          rescue
+            fail!(:rpx_invalid)
           end
         end
         
