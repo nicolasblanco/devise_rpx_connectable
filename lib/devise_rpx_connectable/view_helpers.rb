@@ -1,5 +1,4 @@
 # encoding: utf-8
-require 'devise/mapping'
 
 module Devise #:nodoc:
   module RpxConnectable #:nodoc:

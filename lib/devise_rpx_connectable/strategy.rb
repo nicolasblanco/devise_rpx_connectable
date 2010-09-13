@@ -1,5 +1,4 @@
 # encoding: utf-8
-require 'devise/strategies/base'
 
 module Devise #:nodoc:
   module RpxConnectable #:nodoc:
@@ -61,4 +60,3 @@ module Devise #:nodoc:
   end
 end
 
-Warden::Strategies.add(:rpx_connectable, Devise::RpxConnectable::Strategies::RpxConnectable)
