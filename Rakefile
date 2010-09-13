@@ -20,8 +20,8 @@ begin
 
     spec.files = FileList['[A-Z]*', File.join(*%w[{lib,rails} ** *]).to_s]
 
-    spec.add_dependency 'devise',           '>= 1.2.0'
-    spec.add_dependency 'rpx_now',          '>= 0.6.19'
+    spec.add_dependency 'devise',           '>= 1.1.2'
+    spec.add_dependency 'rpx_now',          '>= 0.6.23'
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
