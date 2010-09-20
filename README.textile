@@ -32,7 +32,7 @@ IMPORTANT : This gem is now ONLY COMPATIBLE with Rails 3, if you want to use it 
 
 h2. Installation
 
-As usual... Add @gem "devise_rpx_connectable"@ in your Gemfile.lock...
+As usual... Add @gem "devise_rpx_connectable"@ in your Gemfile...
 
 h2. Setup
 
