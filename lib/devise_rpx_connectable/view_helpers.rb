@@ -19,8 +19,7 @@ module Devise #:nodoc:
       def link_to_rpx(link_text, link_url, options={})
         options = { :unobtrusive => true }.merge(options)
     		token_url = build_token_url(link_url)
-    		out = RPXNow.popup_code(link_text, rpx_application_name_from_options(options), token_url, options)
-    		out.respond_to?(:html_safe) ? out.html_safe : out
+    		RPXNow.popup_code(link_text, rpx_application_name_from_options(options), token_url, options).html_safe
       end
 
       # Embeds the RPX connection iframe in your page.
@@ -34,8 +33,7 @@ module Devise #:nodoc:
       #
       def embed_rpx(link_url, options={})
         token_url = build_token_url(link_url)
-        out = RPXNow.embed_code(rpx_application_name_from_options(options), token_url, options)
-        out.respond_to?(:html_safe) ? out.html_safe : out
+        RPXNow.embed_code(rpx_application_name_from_options(options), token_url, options).html_safe
       end
 
       # Returns the necessary JS code for the RPX popup.
@@ -49,8 +47,7 @@ module Devise #:nodoc:
       #
       def javascript_include_rpx(link_url, options={})
     		token_url = build_token_url(link_url)
-        out = RPXNow.popup_source(rpx_application_name_from_options(options), token_url, options)
-        out.respond_to?(:html_safe) ? out.html_safe : out
+        RPXNow.popup_source(rpx_application_name_from_options(options), token_url, options).html_safe
       end
 
       protected
