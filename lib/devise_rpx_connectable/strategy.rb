@@ -18,28 +18,32 @@ module Devise #:nodoc:
         def authenticate!
           klass = mapping.to
           raise StandardError, "RPXNow API key is not defined, please see the documentation of RPXNow gem to setup it." unless RPXNow.api_key.present?
-          begin
-            rpx_user = (RPXNow.user_data(params[:token], :extended => klass.rpx_extended_user_data, :additional => klass.rpx_additional_user_data) rescue nil)
-            fail!(:rpx_invalid) and return unless rpx_user
             
-            if user = klass.authenticate_with_rpx(:identifier => rpx_user["identifier"])
-              user.on_before_rpx_success(rpx_user)
-              success!(user)
-              return
-            end
+          rpx_data = (RPXNow.user_data(params[:token], :extended => klass.rpx_extended_user_data, :additional => klass.rpx_additional_user_data) rescue nil)
+          fail!(:rpx_invalid) and return unless rpx_data
+            
+          if user = klass.authenticate_with_rpx(rpx_data)
+            user.on_before_rpx_success(rpx_data)
+            success!(user)
+            return
+          else
+            fail!(:unable_to_authenticate) and return
+          end
+          
+          begin
             
             fail!(:rpx_invalid) and return unless klass.rpx_auto_create_account?
             
             user = klass.new
-            user.store_rpx_credentials!(rpx_user)
-            user.on_before_rpx_auto_create(rpx_user)
+            user.store_rpx_credentials!(rpx_data)
+            user.on_before_rpx_auto_create(rpx_data)
             
             user.save(:validate => false)
-            user.on_before_rpx_success(rpx_user)
+            user.on_before_rpx_success(rpx_data)
             success!(user)
             
           rescue
-            fail!(:rpx_invalid)
+            fail!(:email_taken)
           end
         end
         

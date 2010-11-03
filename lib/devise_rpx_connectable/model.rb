@@ -135,8 +135,19 @@ module Devise #:nodoc:
         # Authenticate a user based on RPX Identifier.
         #
         def authenticate_with_rpx(attributes = {})
-          if attributes[:identifier].present?
-            self.find_for_rpx(attributes[:identifier])
+          begin
+            if attributes[:identifier].present?
+              user = self.find_for_rpx(attributes[:identifier])
+            end
+              
+            if !user and attributes[:email]
+              user = self.find_by_email(attributes[:email])
+            end
+            
+            return user
+            
+          rescue
+            raise StandardError, "Oi! error in authenticate_with_rpx()"
           end
         end
 
