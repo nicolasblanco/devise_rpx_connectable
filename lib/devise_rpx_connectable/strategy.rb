@@ -26,8 +26,6 @@ module Devise #:nodoc:
             user.on_before_rpx_success(rpx_data)
             success!(user)
             return
-          else
-            fail!(:unable_to_authenticate) and return
           end
           
           begin
