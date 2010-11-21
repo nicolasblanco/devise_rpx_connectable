@@ -70,6 +70,8 @@ describe 'DeviseRpxConnectable' do
         @user.should_receive(:on_before_rpx_auto_create).with(RPX_USER_DATA).and_return(true)
         @user.should_receive(:save).with({ :validate => false }).and_return(true)
         @user.should_receive(:on_before_rpx_success).with(RPX_USER_DATA).and_return(true)
+		
+		Identity.should_recieve(:new).and_return(@identity)
         
         @strategy.should_receive(:"success!").with(@user).and_return(true)
         
