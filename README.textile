@@ -71,17 +71,11 @@ In @config/application.rb@ or @config/environments/YOUR_ENV.rb@ (to set a differ
 
 *Migrations*
 Run the following command
-<pre>
-  rails g model identity user_id:integer identifier:string
-</pre>
+<pre>rails g model identity user_id:integer identifier:string</pre>
 Add the following to your user model
-<pre>
-  has_many :identities
-</pre>
+<pre>has_many :identities</pre>
 Then commit the model by running
-<pre>
-  rake db:migrate
-</pre>
+<pre>rake db:migrate</pre>
 
 *Views*
 
