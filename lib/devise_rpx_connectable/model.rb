@@ -162,7 +162,7 @@ module Devise #:nodoc:
           #self.first(:conditions =>  { rpx_identifier_field => identifier })
 		  @identity = Identity.first(:conditions => ["identifier = ?", identifier])
 		  if @identity
-		    return User.find @identity.user_id
+		    return self.find @identity.user_id
 		  end
 		  return false
         end
