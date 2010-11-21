@@ -1,0 +1,2 @@
+REMOVE schema.rb
+ADD migration rb

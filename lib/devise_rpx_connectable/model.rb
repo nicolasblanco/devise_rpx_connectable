@@ -33,8 +33,6 @@ module Devise #:nodoc:
       # Store RPX account/session credentials.
       #
       def store_rpx_credentials!(attributes = {})
-        self.send(:"#{self.class.rpx_identifier_field}=", attributes[:identifier])
-
         # Confirm without e-mail - if confirmable module is loaded.
         self.skip_confirmation! if self.respond_to?(:skip_confirmation!)
 
@@ -141,13 +139,16 @@ module Devise #:nodoc:
             end
               
             if !user and attributes[:email]
-              user = self.find_by_email(attributes[:email])
+              if user = self.find_by_email(attributes[:email])
+				user.identities.new(:identifier => attributes[:identifier]) #build_identity?
+				user.save!
+			  end
             end
             
             return user
             
           rescue
-            raise StandardError, "Oi! error in authenticate_with_rpx()"
+            raise StandardError, "Error in authenticate_with_rpx() -> #{$!}"
           end
         end
 
@@ -158,7 +159,12 @@ module Devise #:nodoc:
         # namedscope to filter records while authenticating.
         #
         def find_for_rpx(identifier)
-          self.first(:conditions =>  { rpx_identifier_field => identifier })
+          #self.first(:conditions =>  { rpx_identifier_field => identifier })
+		  @identity = Identity.first(:conditions => ["identifier = ?", identifier])
+		  if @identity
+		    return User.find @identity.user_id
+		  end
+		  return false
         end
 
         # Contains the logic used in authentication. Overwritten by other devise modules.

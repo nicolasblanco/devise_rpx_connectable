@@ -24,24 +24,26 @@ module Devise #:nodoc:
             
           if user = klass.authenticate_with_rpx(rpx_data)
             user.on_before_rpx_success(rpx_data)
-            success!(user)
-            return
+            success!(user) and return
           end
           
           begin
-            
             fail!(:rpx_invalid) and return unless klass.rpx_auto_create_account?
             
             user = klass.new
             user.store_rpx_credentials!(rpx_data)
             user.on_before_rpx_auto_create(rpx_data)
             
+			# TODO: create a random password here and email the user if we can so that we can check the validations
+			# if the user doesn't have an email, set it to none@none.none and blank the password and salt
             user.save(:validate => false)
-            user.on_before_rpx_success(rpx_data)
-            success!(user)
+			i = Identity.new(:identifier => rpx_data[:identifer])
+			i.save! if i.save # if we got an error with this, it's fine; we can work through it.
+			user.on_before_rpx_success(rpx_data)
+            success!(user) and return
             
           rescue
-            fail!(:email_taken)
+            fail!(:email_taken) and return
           end
         end
         

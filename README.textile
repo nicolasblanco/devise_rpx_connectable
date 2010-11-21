@@ -70,9 +70,18 @@ In @config/application.rb@ or @config/environments/YOUR_ENV.rb@ (to set a differ
 </pre>
 
 *Migrations*
-
-Your model needs one attribute/column to store the RPX identifier. By default, this identifier is @rpx_identifier@.
-So don't forget to add that field to your model (using a migration or whatever...).
+Run the following command
+<pre>
+  rails g model identity user_id:integer identifier:string
+</pre>
+Add the following to your user model
+<pre>
+  has_many :identities
+</pre>
+Then commit the model by running
+<pre>
+  rake db:migrate
+</pre>
 
 *Views*
 

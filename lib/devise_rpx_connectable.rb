@@ -10,7 +10,6 @@ require 'devise_rpx_connectable/model'
 require 'devise_rpx_connectable/strategy'
 Warden::Strategies.add(:rpx_connectable, Devise::RpxConnectable::Strategies::RpxConnectable)
 
-require 'devise_rpx_connectable/schema'
 require 'devise_rpx_connectable/view_helpers'
 
 module Devise
