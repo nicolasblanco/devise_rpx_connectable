@@ -13,7 +13,7 @@ class RPXNow
   cattr_accessor :api_key
 end
 
-RPX_USER_DATA = { "identifier" => "superpipo_user" }
+RPX_USER_DATA = { "identifier" => "superpipo_user", :request_keys => {}}
 PARAMS = { :token => "rpx_token" }
 
 describe 'DeviseRpxConnectable' do
@@ -41,7 +41,7 @@ describe 'DeviseRpxConnectable' do
     end
     
     it "should authenticate if a user exists in database" do      
-      User.should_receive(:authenticate_with_rpx).with({ :identifier => RPX_USER_DATA["identifier"] }).and_return(@user)
+      User.should_receive(:authenticate_with_rpx).with({ :identifier => RPX_USER_DATA["identifier"], :request_keys => {} }).and_return(@user)
       
       @user.should_receive(:on_before_rpx_success).with(RPX_USER_DATA).and_return(true)
       
@@ -52,7 +52,7 @@ describe 'DeviseRpxConnectable' do
     
     describe 'when no user exists in database' do
       before(:each) do
-        User.should_receive(:authenticate_with_rpx).with({ :identifier => RPX_USER_DATA["identifier"] }).and_return(nil)
+        User.should_receive(:authenticate_with_rpx).with({ :identifier => RPX_USER_DATA["identifier"], :request_keys => {} }).and_return(nil)
       end
                 
       it "should fail unless rpx_auto_create_account" do

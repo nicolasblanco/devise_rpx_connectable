@@ -41,6 +41,11 @@ module Devise #:nodoc:
         # Only populate +email+ field if it's available (e.g. if +authenticable+ module is used).
         self.email = attributes[:email] || '' if self.respond_to?(:email)
 
+        # Populate optional request fields
+        attributes[:request_keys].each do |k, v|
+          self.send(:"#{k}=", v)
+        end
+
         # Lazy hack: These database fields are required if +authenticable+/+confirmable+
         # module(s) is used. Could be avoided with :null => true for authenticatable
         # migration, but keeping this to avoid unnecessary problems.
@@ -122,7 +127,8 @@ module Devise #:nodoc:
           :rpx_identifier_field,
           :rpx_auto_create_account,
           :rpx_extended_user_data,
-          :rpx_additional_user_data
+          :rpx_additional_user_data,
+          :request_keys
         )
 
         # Alias don't work for some reason, so...a more Ruby-ish alias
@@ -136,7 +142,7 @@ module Devise #:nodoc:
         #
         def authenticate_with_rpx(attributes = {})
           if attributes[:identifier].present?
-            self.find_for_rpx(attributes[:identifier])
+            self.find_for_rpx(attributes[:identifier], attributes[:request_keys])
           end
         end
 
@@ -146,8 +152,11 @@ module Devise #:nodoc:
         # Overwrite to add customized conditions, create a join, or maybe use a
         # namedscope to filter records while authenticating.
         #
-        def find_for_rpx(identifier)
-          self.first(:conditions =>  { rpx_identifier_field => identifier })
+        def find_for_rpx(identifier, request_keys)
+          conditions = { rpx_identifier_field => identifier }
+          conditions.merge! request_keys
+
+          self.first(:conditions => conditions)
         end
 
         # Contains the logic used in authentication. Overwritten by other devise modules.
