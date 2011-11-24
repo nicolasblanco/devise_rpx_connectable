@@ -32,7 +32,9 @@ end
 
 I18n.load_path.unshift File.join(File.dirname(__FILE__), *%w[devise_rpx_connectable locales en.yml])
 
-Devise.add_module(:rpx_connectable,
-  :strategy => true,
+Devise.add_module(:rpx_connectable, {
   :controller => :sessions,
-  :model => 'devise_rpx_connectable/model')
+  :model => 'devise_rpx_connectable/model',
+  :route => { :session => [nil, :new, :destroy] },
+  :strategy => true
+})
