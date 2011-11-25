@@ -42,8 +42,10 @@ module Devise #:nodoc:
         self.email = attributes[:email] || '' if self.respond_to?(:email)
 
         # Populate optional request fields
-        attributes[:request_keys].each do |k, v|
-          self.send(:"#{k}=", v)
+        if attributes[:request_keys]
+          attributes[:request_keys].each do |k, v|
+            self.send(:"#{k}=", v)
+          end
         end
 
         # Lazy hack: These database fields are required if +authenticable+/+confirmable+
