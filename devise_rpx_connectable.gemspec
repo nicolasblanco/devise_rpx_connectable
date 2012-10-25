@@ -22,7 +22,6 @@ Gem::Specification.new do |s|
      "lib/devise_rpx_connectable.rb",
      "lib/devise_rpx_connectable/locales/en.yml",
      "lib/devise_rpx_connectable/model.rb",
-     "lib/devise_rpx_connectable/schema.rb",
      "lib/devise_rpx_connectable/strategy.rb",
      "lib/devise_rpx_connectable/version.rb",
      "lib/devise_rpx_connectable/view_helpers.rb",
