@@ -1,21 +1,23 @@
+# commented to work with the latest version of devise
+
 # encoding: utf-8
-require 'devise/schema'
+#require 'devise/schema'
 
-module Devise #:nodoc:
-  module RpxConnectable #:nodoc:
+#module Devise #:nodoc:
+#  module RpxConnectable #:nodoc:
 
-    module Schema
+#    module Schema
 
       # Database migration schema for RPX.
       #
-      def rpx_connectable
-        apply_devise_schema ::Devise.rpx_identifier_field, String, :limit => 255
-      end
+#      def rpx_connectable
+#        apply_devise_schema ::Devise.rpx_identifier_field, String, :limit => 255
+#      end
 
-    end
-  end
-end
+#    end
+#  end
+#end
 
-Devise::Schema.module_eval do
-  include ::Devise::RpxConnectable::Schema
-end
+#Devise::Schema.module_eval do
+#  include ::Devise::RpxConnectable::Schema
+#end
