@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    devise_rpx_connectable (0.2.2)
+    devise_rpx_connectable (0.3.0)
       devise (>= 2.1.2)
       rpx_now (~> 0.7.0)
 
