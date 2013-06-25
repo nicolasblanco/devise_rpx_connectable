@@ -1,6 +1,3 @@
-require 'ruby-debug'
-require 'rspec'
-
 module Devise
   class Strategies
     class Base
