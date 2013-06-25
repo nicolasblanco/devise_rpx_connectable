@@ -42,8 +42,10 @@ module Devise #:nodoc:
         self.email = attributes[:email] || '' if self.respond_to?(:email)
 
         # Populate optional request fields
-        attributes[:request_keys].each do |k, v|
-          self.send(:"#{k}=", v)
+        if attributes[:request_keys]
+          attributes[:request_keys].each do |k, v|
+            self.send(:"#{k}=", v)
+          end
         end
 
         # Lazy hack: These database fields are required if +authenticable+/+confirmable+
@@ -84,7 +86,7 @@ module Devise #:nodoc:
       def on_before_rpx_success(rpx_user)
         self.send(:before_rpx_success, rpx_user) if self.respond_to?(:before_rpx_success)
       end
-      
+
       # Hook that gets called before the auto creation of the user.
       # Therefore, this hook is only called when rpx_auto_create_account config option is enabled.
       # Useful for fetching additional user info (etc.) from RPX.
@@ -156,7 +158,7 @@ module Devise #:nodoc:
           conditions = { rpx_identifier_field => identifier }
           conditions.merge! request_keys
 
-          self.first(:conditions => conditions)
+          self.where(conditions).first
         end
 
         # Contains the logic used in authentication. Overwritten by other devise modules.
