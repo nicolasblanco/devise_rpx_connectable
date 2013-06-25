@@ -18,34 +18,34 @@ module Devise #:nodoc:
         def authenticate!
           klass = mapping.to
           raise StandardError, "RPXNow API key is not defined, please see the documentation of RPXNow gem to setup it." unless RPXNow.api_key.present?
-          begin
-            request_keys = klass.request_keys.inject({}) do |res, k|
-              res[k] = params[k]
-              res
-            end rescue {}
 
-            rpx_user = (RPXNow.user_data(params[:token], :extended => klass.rpx_extended_user_data, :additional => klass.rpx_additional_user_data) rescue nil)
-            fail!(:rpx_invalid) and return unless rpx_user
-            
-            if user = klass.authenticate_with_rpx(:identifier => rpx_user["identifier"], :request_keys => request_keys )
-              user.on_before_rpx_success(rpx_user)
-              success!(user)
-              return
-            end
-            
-            fail!(:rpx_invalid) and return unless klass.rpx_auto_create_account?
-            
-            user = klass.new
-            user.store_rpx_credentials!(rpx_user.merge(:request_keys => request_keys))
-            user.on_before_rpx_auto_create(rpx_user)
-            
-            user.save(:validate => false)
+          request_keys = klass.request_keys.inject({}) do |res, k|
+            res[k] = params[k]
+            res
+          end
+
+          rpx_user = RPXNow.user_data(params[:token], {
+            :additional => klass.rpx_additional_user_data,
+            :extended => klass.rpx_extended_user_data
+          })
+
+          fail!(:rpx_invalid) and return unless rpx_user
+
+          if user = klass.authenticate_with_rpx(:identifier => rpx_user["identifier"], :request_keys => request_keys )
             user.on_before_rpx_success(rpx_user)
             success!(user)
-            
-          rescue
-            fail!(:rpx_invalid)
+            return
           end
+
+          fail!(:rpx_invalid) and return unless klass.rpx_auto_create_account?
+
+          user = klass.new
+          user.store_rpx_credentials!(rpx_user.merge(:request_keys => request_keys))
+          user.on_before_rpx_auto_create(rpx_user)
+
+          user.save(:validate => false)
+          user.on_before_rpx_success(rpx_user)
+          success!(user)
         end
         
         protected
