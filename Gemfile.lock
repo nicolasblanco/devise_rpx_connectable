@@ -3,7 +3,7 @@ PATH
   specs:
     devise_rpx_connectable (0.3.0)
       devise (>= 2.1.2)
-      rpx_now (~> 0.7.0)
+      rpx_now (~> 0.7.1)
 
 GEM
   remote: https://rubygems.org/
@@ -24,7 +24,7 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
-    bcrypt-ruby (3.0.1)
+    bcrypt-ruby (3.1.0)
     builder (3.0.4)
     devise (2.2.4)
       bcrypt-ruby (~> 3.0)
@@ -57,7 +57,7 @@ GEM
     rake (0.9.2.2)
     rdoc (3.12.2)
       json (~> 1.4)
-    rpx_now (0.7.0)
+    rpx_now (0.7.1)
       json_pure
     rspec (2.8.0)
       rspec-core (~> 2.8.0)
