@@ -1,5 +1,7 @@
 h1. Devise RPX Connectable
 
+This gem is not maintained anymore. Feel free to take over this project by forking it.
+
 _Devise << RPX_ by "Nicolas Blanco":http://github.com/slainer68
 
 h2. What is Devise?
