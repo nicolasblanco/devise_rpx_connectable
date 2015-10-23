@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_runtime_dependency(%q<devise>, [">= 2.1.2"])
-  gem.add_runtime_dependency(%q<rpx_now>, ["~> 0.7.0"])
+  gem.add_runtime_dependency(%q<rpx_now>, ["~> 0.7.1"])
 
   gem.add_development_dependency(%q<bundler>, ["> 1.1.0"])
   gem.add_development_dependency(%q<rake>, ["~> 0.9.2.2"])
